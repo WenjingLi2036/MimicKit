@@ -29,7 +29,41 @@ Output:
 import argparse
 import pickle
 import numpy as np
-import sys
+if np.__version__[:2] == "1.":
+    import sys
+    # More comprehensive compatibility mapping for NumPy 2.x pickles
+    try:
+        sys.modules["numpy._core.numeric"] = np.core.numeric
+        sys.modules["numpy._core.multiarray"] = np.core.multiarray
+        sys.modules["numpy._core.umath"] = np.core.umath
+        sys.modules["numpy._core.arrayprint"] = np.core.arrayprint
+        sys.modules["numpy._core.fromnumeric"] = np.core.fromnumeric
+        sys.modules["numpy._core.defchararray"] = np.core.defchararray
+        sys.modules["numpy._core.records"] = np.core.records
+        sys.modules["numpy._core.function_base"] = np.core.function_base
+        sys.modules["numpy._core.machar"] = np.core.machar
+        sys.modules["numpy._core.getlimits"] = np.core.getlimits
+        sys.modules["numpy._core.shape_base"] = np.core.shape_base
+        sys.modules["numpy._core.stride_tricks"] = np.core.stride_tricks
+        sys.modules["numpy._core.einsumfunc"] = np.core.einsumfunc
+        sys.modules["numpy._core._asarray"] = np.core._asarray
+        sys.modules["numpy._core._dtype_ctypes"] = np.core._dtype_ctypes
+        sys.modules["numpy._core._internal"] = np.core._internal
+        sys.modules["numpy._core._dtype"] = np.core._dtype
+        sys.modules["numpy._core._exceptions"] = np.core._exceptions
+        sys.modules["numpy._core._methods"] = np.core._methods
+        sys.modules["numpy._core._type_aliases"] = np.core._type_aliases
+        sys.modules["numpy._core._ufunc_config"] = np.core._ufunc_config
+        sys.modules["numpy._core._add_newdocs"] = np.core._add_newdocs
+        sys.modules["numpy._core._add_newdocs_scalars"] = np.core._add_newdocs_scalars
+        sys.modules["numpy._core._multiarray_tests"] = np.core._multiarray_tests
+        sys.modules["numpy._core._multiarray_umath"] = np.core._multiarray_umath
+        sys.modules["numpy._core._operand_flag_tests"] = np.core._operand_flag_tests
+        sys.modules["numpy._core._struct_ufunc_tests"] = np.core._struct_ufunc_tests
+        sys.modules["numpy._core._umath_tests"] = np.core._umath_tests
+    except AttributeError:
+        # Some modules might not exist in older NumPy versions
+        pass
 
 import torch
 
